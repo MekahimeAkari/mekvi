@@ -217,9 +217,18 @@ ex_cmd(SCR *sp)
         int ch, cnt, delim, isaddr, namelen;
         int newscreen, notempty, tmp, vi_address;
         char *arg1, *p, *s, *t;
+        #ifdef MAGIC_COMMENTS
+        const char *magic_comment;
+        int magic_len;
+        #endif
+
 
         gp = sp->gp;
         exp = EXP(sp);
+        #ifdef MAGIC_COMMENTS
+        magic_comment = MAGIC_COMMENT_STRING;
+        magic_len = strlen(magic_comment);
+        #endif
 
         /*
          * We always start running the command on the top of the stack.
@@ -295,7 +304,22 @@ loop:   ecp = LIST_FIRST(&gp->ecq);
          * have to check for that case.
          */
         if (ecp->clen != 0 && ch == '"') {
-                while (--ecp->clen > 0 && *++ecp->cp != '\n');
+                #ifdef MAGIC_COMMENTS
+                int magic_pos;
+
+                magic_pos = 0;
+                #endif
+
+                while (--ecp->clen > 0 && *++ecp->cp != '\n')
+                #ifdef MAGIC_COMMENTS
+                {
+                        if (magic_pos < magic_len && *ecp->cp == magic_comment[magic_pos]) {
+                                if (++magic_pos == magic_len)
+                                        break;
+                        }
+                }
+                #endif
+                ;
                 if (*ecp->cp == '\n') {
                         F_SET(ecp, E_NEWLINE);
                         ++ecp->cp;

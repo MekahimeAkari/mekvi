@@ -109,6 +109,7 @@ editor(GS *gp, int argc, char *argv[])
         if (!strcmp(bsd_getprogname(), "ex")   ||
             !strcmp(bsd_getprogname(), "nex")  ||
             !strcmp(bsd_getprogname(), "oex")  ||
+            !strcmp(bsd_getprogname(), "mex")  ||
             !strcmp(bsd_getprogname(), "obex") ||
             !strcmp(bsd_getprogname(), "openex"))
                 LF_INIT(SC_EX);
@@ -117,6 +118,7 @@ editor(GS *gp, int argc, char *argv[])
                 if (!strcmp(bsd_getprogname(), "view")   ||
                     !strcmp(bsd_getprogname(), "nview")  ||
                     !strcmp(bsd_getprogname(), "oview")  ||
+                    !strcmp(bsd_getprogname(), "mview")  ||
                     !strcmp(bsd_getprogname(), "obview") ||
                     !strcmp(bsd_getprogname(), "openview"))
                         readonly = 1;
@@ -142,18 +144,21 @@ editor(GS *gp, int argc, char *argv[])
         if (!strcmp(bsd_getprogname(), "ex")   ||
             !strcmp(bsd_getprogname(), "nex")  ||
             !strcmp(bsd_getprogname(), "oex")  ||
+            !strcmp(bsd_getprogname(), "mex")  ||
             !strcmp(bsd_getprogname(), "obex") ||
             !strcmp(bsd_getprogname(), "openex"))
                 pmode = MODE_EX;
         else if (!strcmp(bsd_getprogname(), "vi")   ||
                  !strcmp(bsd_getprogname(), "nvi")  ||
                  !strcmp(bsd_getprogname(), "ovi")  ||
+                 !strcmp(bsd_getprogname(), "mvi")  ||
                  !strcmp(bsd_getprogname(), "obvi") ||
                  !strcmp(bsd_getprogname(), "openvi"))
                      pmode = MODE_VI;
         else if (!strcmp(bsd_getprogname(), "view")   ||
                  !strcmp(bsd_getprogname(), "nview")  ||
                  !strcmp(bsd_getprogname(), "oview")  ||
+                 !strcmp(bsd_getprogname(), "mview")  ||
                  !strcmp(bsd_getprogname(), "obview") ||
                  !strcmp(bsd_getprogname(), "openview"))
                     pmode = MODE_VIEW;

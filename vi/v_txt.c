@@ -489,6 +489,11 @@ next:   if (v_event_get(sp, evp, 0, ec_flags))
                 (void)vs_repaint(sp, &fc);
                 (void)vs_refresh(sp, 1);
         }
+                #ifdef DEBUG
+                TRACE(sp, "Event: %u\n", evp->e_event);
+                if (evp->e_event == 1)
+                    TRACE(sp, "Key: %c:%u\n", evp->e_c, evp->e_value);
+                #endif
 
         /* Deal with all non-character events. */
         switch (evp->e_event) {
@@ -530,6 +535,9 @@ next:   if (v_event_get(sp, evp, 0, ec_flags))
                  * completion request. -aymeric
                  */
                 if (LF_ISSET(TXT_RECORD)) {
+                    #ifdef DEBUG
+                    TRACE(sp, "Conversion to escape\n");
+                    #endif
                     evp->e_event = E_CHARACTER;
                     evp->e_c = 033;
                     evp->e_flags = 0;
@@ -836,6 +844,9 @@ k_cr:           if (LF_ISSET(TXT_CR)) {
 
                 goto resolve;
         case K_ESCAPE:                          /* Escape. */
+                #ifdef DEBUG
+                TRACE(sp, "Is escape\n");
+                #endif
                 if (!LF_ISSET(TXT_ESCAPE))
                         goto ins_ch;
 
@@ -1420,6 +1431,9 @@ resolve:/*
 
 done:   /* Leave input mode. */
         F_CLR(sp, SC_TINPUT);
+        #ifdef DEBUG
+        TRACE(sp, "Left input mode\n");
+        #endif
 
         /* If recording for playback, save it. */
         if (LF_ISSET(TXT_RECORD))

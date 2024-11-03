@@ -28,6 +28,9 @@
 #include "../common/common.h"
 #include "vi.h"
 
+#ifdef DEBUG
+#define COMLOG
+#endif
 typedef enum {
         GC_ERR, GC_ERR_NOFLUSH, GC_EVENT, GC_FATAL, GC_INTERRUPT, GC_OK
 } gcret_t;

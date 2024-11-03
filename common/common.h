@@ -14,6 +14,7 @@
  *      @(#)common.h    10.13 (Berkeley) 9/25/96
  */
 
+#include "config.h"
 #include "../include/compat.h"
 
 #include <sys/time.h>
@@ -107,3 +108,6 @@ extern enum pmode { MODE_EX, MODE_VI, MODE_VIEW } pmode;
 #include "mem.h"
 
 #include "com_extern.h"
+#ifdef MAGIC_COMMENTS
+#include "magic_comments.h"
+#endif
